@@ -11,6 +11,8 @@ minZoom: 5, // Minimum allowed zoom
 maxZoom: 18 // Maximum allowed zoom
 });
 
+let stationFlow = d3.scaleQuantize().domain([0, 1]).range([0, 0.5, 1]);
+
 
 map.on('load', () => { 
 map.addSource('boston_route', {
@@ -114,6 +116,7 @@ function getCoords(station) {
                         .attr('stroke', 'white')
                         .attr('stroke-width', 1)
                         .attr('fill-opacity', 0.6)
+                        .style("--departure-ratio", d => stationFlow(d.departures / d.totalTraffic)) 
                         .each(function(d) {
                             d3.select(this)
                                 .append('title')
@@ -222,8 +225,10 @@ function minutesSinceMidnight(date) {
     svg.selectAll('circle')
         .data(filteredStations)
         .attr('r', d => radiusScale(d.totalTraffic))
+        .style("--departure-ratio", d => stationFlow(d.departures / d.totalTraffic)) 
         .each(function(d) {
             d3.select(this).select('title')
                 .text(`${d.totalTraffic} trips (${d.departures} departures, ${d.arrivals} arrivals)`);
         });
 }
+
