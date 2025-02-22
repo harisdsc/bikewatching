@@ -25,3 +25,45 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
     border-radius: 8px; /* Optional: rounded corners */
   }
+
+  #map svg {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  svg circle {
+    pointer-events: auto;
+}
+
+header {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+header label {
+  margin-left: auto;
+  display: grid;
+  grid-template-columns: auto 200px;
+  grid-template-rows: auto auto;
+  gap: 0.5em;
+  align-items: center;
+}
+
+#time-slider {
+  width: 100%;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#selected-time, #any-time {
+  grid-column: 2;
+  grid-row: 2;
+  display: block;
+  min-width: 80px;
+}
